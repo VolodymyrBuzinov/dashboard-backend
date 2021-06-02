@@ -39,7 +39,7 @@ const login = async (req, res, next) => {
         status: 'success',
         code: codes.OK,
         data: {
-          token,
+          ...token,
         },
       });
     }

@@ -1,7 +1,7 @@
 const passport = require('passport');
 const { Strategy, ExtractJwt } = require('passport-jwt');
 
-// const { UserService } = require('../services/userService');
+const { UserService } = require('../services/user/UserServices');
 
 require('dotenv').config();
 const SECRET_KEY = process.env.JWT_KEY;
@@ -14,7 +14,7 @@ var params = {
 passport.use(
   new Strategy(params, async (payload, done) => {
     try {
-      //   const service = new UserService();
+      const service = new UserService();
       const user = await service.getById(payload.id);
 
       if (!user) {

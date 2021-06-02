@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const {
-  validateCreateTodo,
-} = require('../validation/todosValidation');
-const todosController = require('../controllers/todosController');
+  validateCreateTask,
+} = require('../validation/TasksValidation');
+const tasksController = require('../controllers/TasksController');
 const guard = require('../helpers/Guard');
 
 // router.get('/', guard, contactsController.listContacts);
@@ -11,9 +11,9 @@ const guard = require('../helpers/Guard');
 // router.get('/:contactId', guard, contactsController.getById);
 router.post(
   '/',
-  // guard,
-  validateCreateTodo,
-  todosController.createTodo,
+  guard,
+  validateCreateTask,
+  tasksController.createTask,
 );
 
 // router.delete('/:contactId', guard, contactsController.removeContact);
