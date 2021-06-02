@@ -4,13 +4,11 @@ const {
   validateCreateTodo,
 } = require('../validation/todosValidation');
 const todosController = require('../controllers/todosController');
-
 const guard = require('../helpers/Guard');
 
 // router.get('/', guard, contactsController.listContacts);
 
 // router.get('/:contactId', guard, contactsController.getById);
-
 router.post(
   '/',
   // guard,
@@ -34,4 +32,4 @@ router.post(
 //   contactsController.updateStatusContact,
 // );
 
-module.exports = router;
+// module.exports = router;

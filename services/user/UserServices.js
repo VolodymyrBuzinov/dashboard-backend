@@ -12,6 +12,7 @@ class UserService {
   }
   async getByEmail(email) {
     const data = await this.repository.getByEmail(email);
+
     return data;
   }
 }

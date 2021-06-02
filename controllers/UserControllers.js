@@ -1,6 +1,6 @@
 const codes = require('../helpers/Codes');
-const userService = require('../services/user/UserServices');
-
+const { UserService } = require('../services/user/UserServices');
+const userService = new UserService();
 const register = async (req, res, next) => {
   const { email } = req.body;
   const user = await userService.getByEmail(email);

@@ -20,8 +20,8 @@ app.use(express.json());
 //   swaggerUi.serve,
 //   swaggerUi.setup(swaggerDocument),
 // );
-// app.use('/api/todos', todosRouter);
-app.use('/api/users', userRouter);
+// app.use('/todos', todosRouter);
+app.use('/users', userRouter);
 
 app.use((err, req, res, next) => {
   err.status = err.status ? err.status : codes.INTERNAL_SERVER_ERROR;
