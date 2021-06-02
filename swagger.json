@@ -62,27 +62,41 @@
           "registrationResponse": {
             "type": "object",
             "properties": {
-                "name": {
-                  "type": "string",
-                  "example": "Drakon",
-                  "description": "Users Name"
-                },
-                "email": {
-                  "type": "string",
-                  "format": "email",
-                  "description": "Users Email"
-                },
-                "id": {
+                "status": {
                     "type": "string",
-                    "example": "123456789564645",
-                    "description": "Users ID"
-                  }
+                    "example": "Success"
+                },
+                "code": {
+                    "type": "integer",
+                    "example": 201
+                },
+                "data": {
+                    "type": "object",
+                    "properties": {
+                        "name": {
+                            "type": "string",
+                            "example": "Drakon",
+                            "description": "Users Name"
+                          },
+                          "email": {
+                            "type": "string",
+                            "format": "email",
+                            "description": "Users Email"
+                          },
+                          "id": {
+                              "type": "string",
+                              "example": "123456789564645",
+                              "description": "Users ID"
+                            }
+                    }
+                }
               }
           },
         "registrationRequest": {
           "type": "object",
           "required": ["name", "email", "password"],
           "properties": {
+              
             "name": {
               "type": "string",
               "example": "Drakon",
