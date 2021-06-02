@@ -32,4 +32,4 @@ router.post(
 //   contactsController.updateStatusContact,
 // );
 
-// module.exports = router;
+module.exports = router;
