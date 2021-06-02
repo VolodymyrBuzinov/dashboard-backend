@@ -8,18 +8,37 @@ class AuthService {
   constructor() {
     this.repository = new UserRepository();
   }
-  async login(email) {
+  async login(email, password) {
     const user = await this.repository.getByEmail(email);
+    const valid = await user.validPassword(password);
+
+    if (!user) {
+      return null;
+    }
     const id = user.id;
     const payload = { id };
     const token = jwt.sign(payload, process.env.JWT_KEY, {
       expiresIn: '1h',
     });
-    await this.repository.updateToken(id, token);
+    await this.usersRepository.updateToken(id, token);
     return {
       token,
-      user: { email: user.email },
+      user: {
+        name: user.name,
+        email: user.email,
+      },
     };
+    // const user = await this.repository.getByEmail(email);
+    // const id = user.id;
+    // const payload = { id };
+    // const token = jwt.sign(payload, process.env.JWT_KEY, {
+    //   expiresIn: '1h',
+    // });
+    // await this.repository.updateToken(id, token);
+    // return {
+    //   token,
+    //   user: { email: user.email },
+    // };
   }
 }
 

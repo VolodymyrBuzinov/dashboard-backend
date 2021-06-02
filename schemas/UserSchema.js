@@ -45,6 +45,7 @@ userSchema.pre('save', async function (next) {
     this.password,
     bcrypt.genSaltSync(SALT),
   );
+  console.log(this.password);
   next();
 });
 

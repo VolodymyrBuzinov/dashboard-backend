@@ -22,7 +22,7 @@
     "paths": {
       "/users/signup": {
         "post": {
-          "summary": "returns simple answer from get",
+          "summary": "returns simple answer from post",
           "tags": [
             "Auth"
           ],
@@ -45,6 +45,42 @@
                 "application/json": {
                     "schema": {
                      "$ref": "#components/schemas/registrationResponse"
+                    }
+                }
+              }
+            },
+            "400": {
+                "description": "Validation Error",
+                "content": {}
+              }
+          }
+        }        
+      },
+      "/users/login": {
+        "post": {
+          "summary": "returns simple answer from post",
+          "tags": [
+            "Auth"
+          ],
+          "parameters": [],
+          "requestBody": {
+           "description": "Login body",
+           "required": true,
+           "content": {
+               "application/json": {
+                   "schema": {
+                    "$ref": "#components/schemas/loginRequest"
+                   }
+               }
+           }
+          },         
+          "responses": {
+            "201": {
+              "description": "Success",
+              "content": {
+                "application/json": {
+                    "schema": {
+                     "$ref": "#components/schemas/loginResponse"
                     }
                 }
               }
@@ -113,6 +149,50 @@
                 "description": "Users Password"
               }
           }
+        },
+        "loginRequest": {
+          "type": "object",
+          "required": ["email", "password"],
+          "properties": {            
+            "email": {
+              "type": "string",
+              "format": "email",
+              "description": "Users Email"
+            },
+            "password": {
+                "type": "string",
+                "example": "parol123",
+                "description": "Users Password"
+              }
+          }
+        },
+        "loginResponse": {
+          "type": "object",
+            "properties": {
+                "status": {
+                    "type": "string",
+                    "example": "Success"
+                },
+                "code": {
+                    "type": "integer",
+                    "example": 201
+                },
+                "data": {
+                    "type": "object",
+                    "properties": {                        
+                          "email": {
+                            "type": "string",
+                            "format": "email",
+                            "description": "Users Email"
+                          },
+                          "password": {
+                              "type": "string",
+                              "example": "123456789564645",
+                              "description": "Users Password"
+                            }
+                    }
+                }
+              }
         }
       }
     }
