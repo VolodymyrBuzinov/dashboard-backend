@@ -12,6 +12,9 @@ class UserRepository {
     const result = await this.model.findOne({ email });
     return result;
   }
+  async updateToken(userId, token) {
+    await this.model.updateOne({ _id: userId }, { token });
+  }
 }
 
 module.exports = { UserRepository };
