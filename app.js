@@ -6,8 +6,8 @@ const todosRouter = require('./routes/TodosRouter');
 const userRouter = require('./routes/UsersRouter');
 const app = express();
 
-// const swaggerUi = require('swagger-ui-express');
-// const swaggerDocument = require('./swagger.json');
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger.json');
 
 const formatsLogger =
   app.get('env') === 'development' ? 'dev' : 'short';
@@ -15,12 +15,12 @@ const formatsLogger =
 app.use(logger(formatsLogger));
 app.use(cors());
 app.use(express.json());
-// app.use(
-//   '/api-docs',
-//   swaggerUi.serve,
-//   swaggerUi.setup(swaggerDocument),
-// );
-// app.use('/todos', todosRouter);
+app.use(
+  '/api-docs',
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerDocument),
+);
+app.use('/todos', todosRouter);
 app.use('/users', userRouter);
 
 app.use((err, req, res, next) => {

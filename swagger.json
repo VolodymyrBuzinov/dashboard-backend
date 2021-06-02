@@ -6,102 +6,97 @@
     },
     "servers": [
       {
-        "url": "http://localhost:3000"
+        "url": "https://dashboard-go-it.herokuapp.com"
       }
     ],
     "tags": [
       {
-        "name": "API functions",
-        "description": "API functions of our application"
+        "name": "Auth",
+        "description": "Auth methods"
+      },
+      {
+        "name": "Todos",
+        "description": "Todos methods"
       }
     ],
     "paths": {
-      "/users/{id}": {
-        "get": {
+      "/users/signup": {
+        "post": {
           "summary": "returns simple answer from get",
           "tags": [
-            "API functions"
+            "Auth"
           ],
-          "parameters": [
-            {
-              "name": "id",
-              "in": "path",
-              "required": true,
-              "description": "simple parameter",
-              "schema": {
-                "type": "string",
-                "example": "1"
-              }
-            }
-          ],
-          "description": "parameter id just for test",
-          "responses": {
-            "200": {
-              "description": "OK",
-              "content": {
-                "document": {
-                  "schema": {
-                    "type": "string",
-                    "example": "some text"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "post": {
-          "summary": "returns simple answer from post",
-          "tags": [
-            "API functions"
-          ],
+          "parameters": [],
           "requestBody": {
-            "required": true,
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Info"
-                },
-                "example": {
-                  "country": "Russia",
-                  "city": "Spb"
+           "description": "Registration body",
+           "required": true,
+           "content": {
+               "application/json": {
+                   "schema": {
+                    "$ref": "#components/schemas/registrationRequest"
+                   }
+               }
+           }
+          },         
+          "responses": {
+            "201": {
+              "description": "Success",
+              "content": {
+                "application/json": {
+                    "schema": {
+                     "$ref": "#components/schemas/registrationResponse"
+                    }
                 }
               }
             }
-          },
-          "parameters": [
-            {
-              "name": "id",
-              "in": "path",
-              "required": true,
-              "description": "simple parameter",
-              "schema": {
-                "type": "string",
-                "example": "1"
-              }
-            }
-          ],
-          "description": "parameter id just for test",
-          "responses": {
-            "204": {
-              "description": "OK"
-            }
           }
-        }
+        }        
       }
     },
     "components": {
       "schemas": {
-        "Info": {
+          "registrationResponse": {
+            "type": "object",
+            "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "Drakon",
+                  "description": "Users Name"
+                },
+                "email": {
+                  "type": "string",
+                  "format": "email",
+                  "description": "Users Email"
+                },
+                "id": {
+                    "type": "string",
+                    "example": "123456789564645",
+                    "description": "Users ID"
+                  }
+              }
+          },
+        "registrationRequest": {
           "type": "object",
+          "required": ["name", "email", "password"],
           "properties": {
-            "country": {
-              "type": "string"
+            "name": {
+              "type": "string",
+              "example": "Drakon",
+              "description": "Users Name"
             },
-            "city": {
-              "type": "string"
-            }
+            "email": {
+              "type": "string",
+              "format": "email",
+              "description": "Users Email"
+            },
+            "password": {
+                "type": "string",
+                "example": "parol123",
+                "description": "Users Password"
+              }
           }
         }
       }
     }
+    
   }
