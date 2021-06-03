@@ -89,6 +89,34 @@
       }
     },
     "/tasks": {
+      "get": {
+        "summary": "Get all tasks",
+        "tags": ["Tasks"],
+        "security": [{ "Bearer": [] }],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#components/schemas/getAllTasksResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#components/schemas/UNAUTHORIZED"
+                }
+              }
+            }
+          }
+        }
+      },
       "post": {
         "summary": "Post new task",
         "tags": ["Tasks"],
@@ -266,6 +294,143 @@
             "type": "boolean",
             "example": false,
             "description": "Is done? Default: false"
+          }
+        }
+      },
+      "createTaskResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "Success"
+          },
+          "code": {
+            "type": "integer",
+            "example": 201
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "category": {
+                "type": "string",
+                "example": "STUFF",
+                "description": "Task category",
+                "enum": [
+                  "STUFF",
+                  "FAMILY",
+                  "HEALTH",
+                  "LEARNING",
+                  "LEISURE",
+                  "WORK"
+                ]
+              },
+              "difficulty": {
+                "type": "string",
+                "example": "Easy",
+                "description": "Difficulty of task",
+                "enum": ["Hard", "Easy", "Normal"]
+              },
+              "title": {
+                "type": "string",
+                "example": "Do something",
+                "description": "Body task"
+              },
+              "time": {
+                "type": "string",
+                "example": "06.14.2021 20:30",
+                "description": "Time of end task"
+              },
+              "challenge": {
+                "type": "boolean",
+                "example": false,
+                "description": "Is challenge? Default: false"
+              },
+              "done": {
+                "type": "boolean",
+                "example": false,
+                "description": "Is done? Default: false"
+              }
+            }
+          }
+        }
+      },
+      "getAllTasksResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "Success"
+          },
+          "code": {
+            "type": "integer",
+            "example": 200
+          },
+          "data": {
+            "items": {
+              "type": "object",
+              "properties": {
+                "category": {
+                  "type": "string",
+                  "example": "STUFF",
+                  "description": "Task category",
+                  "enum": [
+                    "STUFF",
+                    "FAMILY",
+                    "HEALTH",
+                    "LEARNING",
+                    "LEISURE",
+                    "WORK"
+                  ]
+                },
+                "difficulty": {
+                  "type": "string",
+                  "example": "Easy",
+                  "description": "Difficulty of task",
+                  "enum": ["Hard", "Easy", "Normal"]
+                },
+                "title": {
+                  "type": "string",
+                  "example": "Do something",
+                  "description": "Body task"
+                },
+                "time": {
+                  "type": "string",
+                  "example": "06.14.2021 20:30",
+                  "description": "Time of end task"
+                },
+                "challenge": {
+                  "type": "boolean",
+                  "example": false,
+                  "description": "Is challenge? Default: false"
+                },
+                "done": {
+                  "type": "boolean",
+                  "example": false,
+                  "description": "Is done? Default: false"
+                }
+              }
+            }
+          }
+        }
+      },
+      "UNAUTHORIZED": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "Error"
+          },
+          "code": {
+            "type": "integer",
+            "example": "401"
+          },
+          "message": {
+            "type": "string",
+            "example": "UNAUTHORIZED"
+          },
+          "data": {
+            "type": "string",
+            "example": "UNAUTHORIZED"
           }
         }
       }

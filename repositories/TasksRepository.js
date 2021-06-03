@@ -13,6 +13,14 @@ class TasksRepository {
 
     return newTask;
   }
+
+  async getAllTasks(userId) {
+    const tasks = await this.taskModel.find({
+      owner: userId,
+    });
+
+    return tasks;
+  }
 }
 
 module.exports = { TasksRepository };

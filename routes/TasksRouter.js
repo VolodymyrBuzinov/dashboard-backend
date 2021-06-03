@@ -6,7 +6,7 @@ const {
 const tasksController = require('../controllers/TasksController');
 const guard = require('../helpers/Guard');
 
-// router.get('/', guard, contactsController.listContacts);
+router.get('/', guard, tasksController.getAllTasks);
 
 // router.get('/:contactId', guard, contactsController.getById);
 router.post(

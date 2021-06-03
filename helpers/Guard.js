@@ -4,7 +4,6 @@ const codes = require('./Codes');
 
 const guard = async (req, res, next) => {
   passport.authenticate('jwt', { session: false }, (err, user) => {
-    console.log(err);
     if (err || !user) {
       return next({
         status: codes.UNAUTHORIZED,
