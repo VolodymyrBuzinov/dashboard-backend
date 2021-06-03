@@ -32,7 +32,7 @@ class AuthService {
     };
   }
   async logout(userID) {
-    const data = this.repository.logout(userID);
+    const data = this.repository.updateToken(userID, null);
     return data;
   }
 }

@@ -88,6 +88,24 @@
         }
       }
     },
+    "/users/logout": {
+      "post": {
+        "summary": "Logout Method",
+        "tags": ["Auth"],
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "204": {
+            "description": "Success",
+            "content": {}
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {}
+          }
+        }
+      }
+    },
     "/tasks": {
       "get": {
         "summary": "Get all tasks",

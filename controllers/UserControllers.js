@@ -56,13 +56,11 @@ const logout = async (req, res, next) => {
   try {
     const userId = req.user.id;
     await authService.logout(userId);
-    return res
-      .status(codes.NO_CONTENT)
-      .json({
-        status: 'Success',
-        message: 'Success logout',
-        code: codes.NO_CONTENT,
-      });
+    return res.status(codes.NO_CONTENT).json({
+      status: 'Success',
+      message: 'Success logout',
+      code: codes.NO_CONTENT,
+    });
   } catch (error) {
     next(error);
   }
