@@ -16,7 +16,7 @@ router.post(
   tasksController.createTask,
 );
 
-// router.delete('/:contactId', guard, contactsController.removeContact);
+router.delete('/:taskId', guard, tasksController.deleteTask);
 
 // router.patch(
 //   '/:contactId',
