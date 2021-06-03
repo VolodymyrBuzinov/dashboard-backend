@@ -58,8 +58,38 @@ const deleteTask = async (req, res, next) => {
   }
 };
 
+const updateTask = async (req, res, next) => {
+  try {
+    const userId = req.user.id;
+    const taskId = req.params.taskId;
+    const task = await tasksServices.updateTask(
+      userId,
+      taskId,
+      req.body,
+    );
+
+    if (task) {
+      res.status(codes.OK).json({
+        status: 'success',
+        code: codes.OK,
+        data: task,
+      });
+    } else {
+      return next({
+        status: 'Not Found',
+        code: codes.NOT_FOUND,
+        message: 'Task not found',
+        data: 'Not Found',
+      });
+    }
+  } catch (e) {
+    next(e);
+  }
+};
+
 module.exports = {
   createTask,
   getAllTasks,
   deleteTask,
+  updateTask,
 };
