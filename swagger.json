@@ -147,6 +147,66 @@
           "400": {
             "description": "Validation Error",
             "content": {}
+          },
+          "401": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#components/schemas/UNAUTHORIZED"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete task by id",
+        "tags": ["Tasks"],
+        "security": [{ "Bearer": [] }],
+        "parameters": [
+          {
+            "name": "taskId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Id of task"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#components/schemas/deleteTaskResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation Error",
+            "content": {}
+          },
+          "401": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#components/schemas/UNAUTHORIZED"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#components/schemas/taskNotFound"
+                }
+              }
+            }
           }
         }
       }
@@ -242,7 +302,6 @@
                 "type": "string",
                 "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwYjhhNmRkNTk3ZjJiMWYzNGU5OTdkYyIsImVtYWlsIjoidm92YUBnbWFpbC5jb20iLCJpYXQiOjE2MjI3MTQxMDYsImV4cCI6MTYyMjcxNzcwNn0.o63iY3Aek9yYrmdEEPl0c15o36ILs44AnX4oytReFxE",
                 "description": "Users Token"
-                
               },
               "user": {
                 "type": "object",
@@ -360,6 +419,16 @@
                 "type": "boolean",
                 "example": false,
                 "description": "Is done? Default: false"
+              },
+              "_id": {
+                "type": "string",
+                "example": "60b8933d150add3b84d312cf",
+                "description": "Task id"
+              },
+              "owner": {
+                "type": "string",
+                "example": "60b8933d150add3b84d312cf",
+                "description": "Task-owner id"
               }
             }
           }
@@ -418,9 +487,107 @@
                   "type": "boolean",
                   "example": false,
                   "description": "Is done? Default: false"
+                },
+                "_id": {
+                  "type": "string",
+                  "example": "60b8933d150add3b84d312cf",
+                  "description": "Task id"
+                },
+                "owner": {
+                  "type": "string",
+                  "example": "60b8933d150add3b84d312cf",
+                  "description": "Task-owner id"
                 }
               }
             }
+          }
+        }
+      },
+      "deleteTaskResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "Success"
+          },
+          "code": {
+            "type": "integer",
+            "example": 200
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "category": {
+                "type": "string",
+                "example": "STUFF",
+                "description": "Task category",
+                "enum": [
+                  "STUFF",
+                  "FAMILY",
+                  "HEALTH",
+                  "LEARNING",
+                  "LEISURE",
+                  "WORK"
+                ]
+              },
+              "difficulty": {
+                "type": "string",
+                "example": "Easy",
+                "description": "Difficulty of task",
+                "enum": ["Hard", "Easy", "Normal"]
+              },
+              "title": {
+                "type": "string",
+                "example": "Do something",
+                "description": "Body task"
+              },
+              "time": {
+                "type": "string",
+                "example": "06.14.2021 20:30",
+                "description": "Time of end task"
+              },
+              "challenge": {
+                "type": "boolean",
+                "example": false,
+                "description": "Is challenge? Default: false"
+              },
+              "done": {
+                "type": "boolean",
+                "example": false,
+                "description": "Is done? Default: false"
+              },
+              "_id": {
+                "type": "string",
+                "example": "60b8933d150add3b84d312cf",
+                "description": "Task id"
+              },
+              "owner": {
+                "type": "string",
+                "example": "60b8933d150add3b84d312cf",
+                "description": "Task-owner id"
+              }
+            }
+          }
+        }
+      },
+      "taskNotFound": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "Not Found"
+          },
+          "code": {
+            "type": "integer",
+            "example": "404"
+          },
+          "message": {
+            "type": "string",
+            "example": "Task not found"
+          },
+          "data": {
+            "type": "string",
+            "example": "Not Found"
           }
         }
       },
@@ -446,6 +613,7 @@
         }
       }
     },
+
     "securitySchemes": {
       "Bearer": {
         "type": "http",

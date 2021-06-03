@@ -21,6 +21,14 @@ class TasksRepository {
 
     return tasks;
   }
+
+  async deleteTask(userId, taskId) {
+    const record = await this.taskModel.findByIdAndRemove(taskId, {
+      owner: userId,
+    });
+
+    return record;
+  }
 }
 
 module.exports = { TasksRepository };

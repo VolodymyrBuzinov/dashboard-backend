@@ -14,6 +14,10 @@ class TasksServices {
   async getAllTasks(userId) {
     return await this.tasksRepository.getAllTasks(userId);
   }
+
+  async deleteTask(userId, taskId) {
+    return await this.tasksRepository.deleteTask(userId, taskId);
+  }
 }
 
 module.exports = { TasksServices };

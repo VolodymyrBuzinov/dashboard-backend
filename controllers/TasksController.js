@@ -31,7 +31,35 @@ const createTask = async (req, res, next) => {
   }
 };
 
+const deleteTask = async (req, res, next) => {
+  try {
+    const userId = req.user.id;
+    const deletedTask = await tasksServices.deleteTask(
+      userId,
+      req.params.taskId,
+    );
+
+    if (deletedTask) {
+      res.status(codes.OK).json({
+        status: 'success',
+        code: codes.OK,
+        data: deletedTask,
+      });
+    } else {
+      return next({
+        status: 'Not Found',
+        code: codes.NOT_FOUND,
+        message: 'Task not found',
+        data: 'Not Found',
+      });
+    }
+  } catch (e) {
+    next(e);
+  }
+};
+
 module.exports = {
   createTask,
   getAllTasks,
+  deleteTask,
 };
