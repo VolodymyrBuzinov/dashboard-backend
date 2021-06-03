@@ -22,7 +22,7 @@
   "paths": {
     "/users/signup": {
       "post": {
-        "summary": "returns simple answer from post",
+        "summary": "Signup Method",
         "tags": ["Auth"],
         "parameters": [],
         "requestBody": {
@@ -56,7 +56,7 @@
     },
     "/users/login": {
       "post": {
-        "summary": "returns simple answer from post",
+        "summary": "Login Method",
         "tags": ["Auth"],
         "parameters": [],
         "requestBody": {
