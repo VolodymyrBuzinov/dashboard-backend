@@ -65,4 +65,48 @@ const logout = async (req, res, next) => {
     next(error);
   }
 };
-module.exports = { register, login, logout };
+const verification = async (req, res, next) => {
+  try {
+    const result = await userService.verification(req.params);
+    if (result) {
+      return res.status(codes.OK).json({
+        status: 'success',
+        code: codes.OK,
+        data: {
+          message: 'Verification successful',
+        },
+      });
+    }
+    return next({
+      message: 'User not found',
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+const sendNewMail = async (req, res, next) => {
+  try {
+    const result = await userService.sendNewMail(req.body);
+    if (result) {
+      return res.status(codes.OK).json({
+        status: 'success',
+        code: codes.OK,
+        data: {
+          message: 'Verification email sent',
+        },
+      });
+    }
+    return next({
+      message: 'Verification has already been passed',
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+module.exports = {
+  register,
+  login,
+  logout,
+  verification,
+  sendNewMail,
+};

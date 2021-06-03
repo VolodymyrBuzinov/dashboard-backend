@@ -23,6 +23,22 @@ class UserRepository {
     const data = this.model.logout(userID);
     return data;
   }
+  async verification({ verifyToken }) {
+    const user = await this.model.findOne({ verifyToken });
+
+    if (!user) {
+      return false;
+    }
+    const record = await user.updateOne({
+      verify: true,
+      verifyToken: null,
+    });
+    return record;
+  }
+  async sendNewMaiL(email) {
+    const data = await this.model.findOne({ email });
+    return data;
+  }
 }
 
 module.exports = { UserRepository };

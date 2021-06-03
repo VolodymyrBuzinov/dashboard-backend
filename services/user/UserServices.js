@@ -1,14 +1,26 @@
 const {
   UserRepository,
 } = require('../../repositories/UserRepository');
-
+const { MailService } = require('./MailService');
+const { v4: uuidv4 } = require('uuid');
 class UserService {
   constructor() {
     this.repository = new UserRepository();
+    this.mailService = new MailService();
   }
   async addUser(body) {
-    const data = await this.repository.addUser(body);
-    return data;
+    try {
+      const { email, name } = body;
+      const verifyToken = uuidv4();
+      const data = await this.repository.addUser({
+        ...body,
+        verifyToken,
+      });
+      await this.mailService.sendEmail(verifyToken, email, name);
+      return data;
+    } catch (error) {
+      throw new Error(503, error.message, 'Service Unavaliable');
+    }
   }
   async getByEmail(email) {
     const data = await this.repository.getByEmail(email);
@@ -19,6 +31,31 @@ class UserService {
     const data = await this.repository.getById(id);
 
     return data;
+  }
+  async verification({ verificationToken }) {
+    const data = await this.repository.verification({
+      verifyToken: verificationToken,
+    });
+    return data;
+  }
+  async sendNewMail({ email }) {
+    try {
+      const data = await this.repository.sendNewMaiL(email);
+      if (!data.verify) {
+        this.mailService.sendEmail(
+          data.verifyToken,
+          email,
+          data.name,
+        );
+        return data;
+      }
+    } catch (error) {
+      throw new Error(
+        400,
+        error.message,
+        'Verification has already been passed',
+      );
+    }
   }
 }
 
