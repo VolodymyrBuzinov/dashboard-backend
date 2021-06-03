@@ -29,6 +29,19 @@ class TasksRepository {
 
     return record;
   }
+
+  async updateTask(userId, taskId, body) {
+    const updatedTask = await this.taskModel.findByIdAndUpdate(
+      {
+        _id: taskId,
+        owner: userId,
+      },
+      { ...body },
+      { new: true },
+    );
+
+    return updatedTask;
+  }
 }
 
 module.exports = TasksRepository;

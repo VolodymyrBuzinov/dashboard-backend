@@ -100,7 +100,7 @@
             "content": {}
           },
           "401": {
-            "description": "Unauthorized",
+            "description": "UNAUTHORIZED",
             "content": {}
           }
         }
@@ -124,7 +124,7 @@
             }
           },
           "401": {
-            "description": "Validation Error",
+            "description": "UNAUTHORIZED",
             "content": {
               "application/json": {
                 "schema": {
@@ -167,11 +167,74 @@
             "content": {}
           },
           "401": {
-            "description": "Validation Error",
+            "description": "UNAUTHORIZED",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#components/schemas/UNAUTHORIZED"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tasks/{taskId}": {
+      "put": {
+        "summary": "Update task",
+        "tags": ["Tasks"],
+        "security": [{ "Bearer": [] }],
+        "parameters": [
+          {
+            "name": "taskId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Id of task"
+          }
+        ],
+        "requestBody": {
+          "description": "Task body",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#components/schemas/createTaskRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#components/schemas/deleteTaskResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation Error",
+            "content": {}
+          },
+          "401": {
+            "description": "UNAUTHORIZED",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#components/schemas/UNAUTHORIZED"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#components/schemas/taskNotFound"
                 }
               }
             }
@@ -207,7 +270,7 @@
             "content": {}
           },
           "401": {
-            "description": "Validation Error",
+            "description": "UNAUTHORIZED",
             "content": {
               "application/json": {
                 "schema": {
