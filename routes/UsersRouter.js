@@ -5,11 +5,11 @@ const userControllers = require('../controllers/UserControllers');
 
 router.post('/signup', userControllers.register);
 router.post('/login', userControllers.login);
+router.post('/logout', guard, userControllers.logout);
 // router.get('/current', guard, userController.current);
 // router.get('/verify/:verificationToken', userController.verification);
 // router.post('/verify', userController.sendNewMail);
 
-// router.post('/logout', guard, userController.logout);
 // router.patch('/', guard, userController.subscription);
 
 module.exports = router;

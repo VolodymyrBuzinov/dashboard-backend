@@ -31,6 +31,10 @@ class AuthService {
       },
     };
   }
+  async logout(userID) {
+    const data = this.repository.logout(userID);
+    return data;
+  }
 }
 
 module.exports = { AuthService };

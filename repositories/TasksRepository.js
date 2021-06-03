@@ -31,4 +31,4 @@ class TasksRepository {
   }
 }
 
-module.exports = { TasksRepository };
+module.exports = TasksRepository;

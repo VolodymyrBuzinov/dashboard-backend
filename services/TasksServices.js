@@ -1,6 +1,4 @@
-const {
-  TasksRepository,
-} = require('../repositories/tasksRepository');
+const TasksRepository = require('../repositories/TasksRepository');
 
 class TasksServices {
   constructor() {

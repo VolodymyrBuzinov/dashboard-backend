@@ -19,6 +19,10 @@ class UserRepository {
   async updateToken(userId, token) {
     await this.model.updateOne({ _id: userId }, { token });
   }
+  async logout(userID) {
+    const data = this.model.logout(userID);
+    return data;
+  }
 }
 
 module.exports = { UserRepository };
