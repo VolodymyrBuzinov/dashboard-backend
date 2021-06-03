@@ -10,12 +10,13 @@ class AuthService {
   }
   async login(email, password) {
     const user = await this.repository.getByEmail(email);
-    const valid = await user.validPassword(password);
-
-    if (!user || !valid) {
+    if (!user) {
       return null;
     }
-
+    const valid = await user.validPassword(password);
+    if (!valid) {
+      return null;
+    }
     const id = user.id;
     const payload = { id, email };
     const token = jwt.sign(payload, process.env.JWT_KEY, {
@@ -29,17 +30,6 @@ class AuthService {
         email: user.email,
       },
     };
-    // const user = await this.repository.getByEmail(email);
-    // const id = user.id;
-    // const payload = { id };
-    // const token = jwt.sign(payload, process.env.JWT_KEY, {
-    //   expiresIn: '1h',
-    // });
-    // await this.repository.updateToken(id, token);
-    // return {
-    //   token,
-    //   user: { email: user.email },
-    // };
   }
 }
 

@@ -238,15 +238,26 @@
           "data": {
             "type": "object",
             "properties": {
-              "email": {
+              "token": {
                 "type": "string",
-                "format": "email",
-                "description": "Users Email"
+                "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwYjhhNmRkNTk3ZjJiMWYzNGU5OTdkYyIsImVtYWlsIjoidm92YUBnbWFpbC5jb20iLCJpYXQiOjE2MjI3MTQxMDYsImV4cCI6MTYyMjcxNzcwNn0.o63iY3Aek9yYrmdEEPl0c15o36ILs44AnX4oytReFxE",
+                "description": "Users Token"
+                
               },
-              "password": {
-                "type": "string",
-                "example": "123456789564645",
-                "description": "Users Password"
+              "user": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "format": "email",
+                    "description": "Users Email"
+                  },
+                  "name": {
+                    "type": "string",
+                    "example": "Vasya",
+                    "description": "Users Name"
+                  }
+                }
               }
             }
           }
