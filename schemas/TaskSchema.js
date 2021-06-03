@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 const mongoosePaginate = require('mongoose-paginate-v2');
-const todoSchema = new Schema(
+
+const taskSchema = new Schema(
   {
     category: {
       type: String,
@@ -35,7 +36,7 @@ const todoSchema = new Schema(
   { versionKey: false, timestamps: true },
 );
 
-todoSchema.plugin(mongoosePaginate);
-const todos = mongoose.model('todo', todoSchema);
+taskSchema.plugin(mongoosePaginate);
+const tasks = mongoose.model('task', taskSchema);
 
-module.exports = todos;
+module.exports = tasks;

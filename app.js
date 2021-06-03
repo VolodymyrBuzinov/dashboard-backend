@@ -2,7 +2,7 @@ const express = require('express');
 const logger = require('morgan');
 const cors = require('cors');
 const codes = require('./helpers/Codes');
-const todosRouter = require('./routes/TodosRouter');
+const tasksRouter = require('./routes/TasksRouter');
 const userRouter = require('./routes/UsersRouter');
 const app = express();
 
@@ -20,7 +20,7 @@ app.use(
   swaggerUi.serve,
   swaggerUi.setup(swaggerDocument),
 );
-app.use('/todos', todosRouter);
+app.use('/tasks', tasksRouter);
 app.use('/users', userRouter);
 
 app.use((err, req, res, next) => {

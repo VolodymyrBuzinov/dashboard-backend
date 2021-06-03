@@ -1,200 +1,446 @@
 {
-    "openapi": "3.0.1",
-    "info": {
-      "title": "Dashboard Api",
-      "version": "v1"
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Dashboard Api",
+    "version": "v1"
+  },
+  "servers": [
+    {
+      "url": "https://dashboard-go-it.herokuapp.com"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Auth",
+      "description": "Auth methods"
     },
-    "servers": [
-      {
-        "url": "https://dashboard-go-it.herokuapp.com"
-      }
-    ],
-    "tags": [
-      {
-        "name": "Auth",
-        "description": "Auth methods"
-      },
-      {
-        "name": "Todos",
-        "description": "Todos methods"
-      }
-    ],
-    "paths": {
-      "/users/signup": {
-        "post": {
-          "summary": "returns simple answer from post",
-          "tags": [
-            "Auth"
-          ],
-          "parameters": [],
-          "requestBody": {
-           "description": "Registration body",
-           "required": true,
-           "content": {
-               "application/json": {
-                   "schema": {
-                    "$ref": "#components/schemas/registrationRequest"
-                   }
-               }
-           }
-          },         
-          "responses": {
-            "201": {
-              "description": "Success",
-              "content": {
-                "application/json": {
-                    "schema": {
-                     "$ref": "#components/schemas/registrationResponse"
-                    }
-                }
+    {
+      "name": "Tasks",
+      "description": "Tasks methods"
+    }
+  ],
+  "paths": {
+    "/users/signup": {
+      "post": {
+        "summary": "returns simple answer from post",
+        "tags": ["Auth"],
+        "parameters": [],
+        "requestBody": {
+          "description": "Registration body",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#components/schemas/registrationRequest"
               }
-            },
-            "400": {
-                "description": "Validation Error",
-                "content": {}
-              }
+            }
           }
-        }        
-      },
-      "/users/login": {
-        "post": {
-          "summary": "returns simple answer from post",
-          "tags": [
-            "Auth"
-          ],
-          "parameters": [],
-          "requestBody": {
-           "description": "Login body",
-           "required": true,
-           "content": {
-               "application/json": {
-                   "schema": {
-                    "$ref": "#components/schemas/loginRequest"
-                   }
-               }
-           }
-          },         
-          "responses": {
-            "201": {
-              "description": "Success",
-              "content": {
-                "application/json": {
-                    "schema": {
-                     "$ref": "#components/schemas/loginResponse"
-                    }
+        },
+        "responses": {
+          "201": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#components/schemas/registrationResponse"
                 }
               }
-            },
-            "400": {
-                "description": "Validation Error",
-                "content": {}
-              }
-          }
-        }        
-      }
-    },
-    "components": {
-      "schemas": {
-          "registrationResponse": {
-            "type": "object",
-            "properties": {
-                "status": {
-                    "type": "string",
-                    "example": "Success"
-                },
-                "code": {
-                    "type": "integer",
-                    "example": 201
-                },
-                "data": {
-                    "type": "object",
-                    "properties": {
-                        "name": {
-                            "type": "string",
-                            "example": "Drakon",
-                            "description": "Users Name"
-                          },
-                          "email": {
-                            "type": "string",
-                            "format": "email",
-                            "description": "Users Email"
-                          },
-                          "id": {
-                              "type": "string",
-                              "example": "123456789564645",
-                              "description": "Users ID"
-                            }
-                    }
-                }
-              }
+            }
           },
-        "registrationRequest": {
-          "type": "object",
-          "required": ["name", "email", "password"],
-          "properties": {
-              
-            "name": {
-              "type": "string",
-              "example": "Drakon",
-              "description": "Users Name"
-            },
-            "email": {
-              "type": "string",
-              "format": "email",
-              "description": "Users Email"
-            },
-            "password": {
-                "type": "string",
-                "example": "parol123",
-                "description": "Users Password"
+          "400": {
+            "description": "Bad request.Validation Error",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/users/login": {
+      "post": {
+        "summary": "returns simple answer from post",
+        "tags": ["Auth"],
+        "parameters": [],
+        "requestBody": {
+          "description": "Login body",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#components/schemas/loginRequest"
               }
+            }
           }
         },
-        "loginRequest": {
-          "type": "object",
-          "required": ["email", "password"],
-          "properties": {            
-            "email": {
-              "type": "string",
-              "format": "email",
-              "description": "Users Email"
-            },
-            "password": {
-                "type": "string",
-                "example": "parol123",
-                "description": "Users Password"
-              }
-          }
-        },
-        "loginResponse": {
-          "type": "object",
-            "properties": {
-                "status": {
-                    "type": "string",
-                    "example": "Success"
-                },
-                "code": {
-                    "type": "integer",
-                    "example": 201
-                },
-                "data": {
-                    "type": "object",
-                    "properties": {                        
-                          "email": {
-                            "type": "string",
-                            "format": "email",
-                            "description": "Users Email"
-                          },
-                          "password": {
-                              "type": "string",
-                              "example": "123456789564645",
-                              "description": "Users Password"
-                            }
-                    }
+        "responses": {
+          "201": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#components/schemas/loginResponse"
                 }
               }
+            }
+          },
+          "400": {
+            "description": "Validation Error",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/tasks": {
+      "get": {
+        "summary": "Get all tasks",
+        "tags": ["Tasks"],
+        "security": [{ "Bearer": [] }],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#components/schemas/getAllTasksResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#components/schemas/UNAUTHORIZED"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Post new task",
+        "tags": ["Tasks"],
+        "security": [{ "Bearer": [] }],
+        "parameters": [],
+        "requestBody": {
+          "description": "Task body",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#components/schemas/createTaskRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#components/schemas/createTaskResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation Error",
+            "content": {}
+          }
         }
       }
     }
-    
+  },
+  "components": {
+    "schemas": {
+      "registrationResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "Success"
+          },
+          "code": {
+            "type": "integer",
+            "example": 201
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "example": "Drakon",
+                "description": "Users Name"
+              },
+              "email": {
+                "type": "string",
+                "format": "email",
+                "description": "Users Email"
+              },
+              "id": {
+                "type": "string",
+                "example": "123456789564645",
+                "description": "Users ID"
+              }
+            }
+          }
+        }
+      },
+      "registrationRequest": {
+        "type": "object",
+        "required": ["name", "email", "password"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Drakon",
+            "description": "Users Name"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "description": "Users Email"
+          },
+          "password": {
+            "type": "string",
+            "example": "parol123",
+            "description": "Users Password"
+          }
+        }
+      },
+      "loginRequest": {
+        "type": "object",
+        "required": ["email", "password"],
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email",
+            "description": "Users Email"
+          },
+          "password": {
+            "type": "string",
+            "example": "parol123",
+            "description": "Users Password"
+          }
+        }
+      },
+      "loginResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "Success"
+          },
+          "code": {
+            "type": "integer",
+            "example": 201
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "email": {
+                "type": "string",
+                "format": "email",
+                "description": "Users Email"
+              },
+              "password": {
+                "type": "string",
+                "example": "123456789564645",
+                "description": "Users Password"
+              }
+            }
+          }
+        }
+      },
+      "createTaskRequest": {
+        "type": "object",
+        "required": ["category", "difficulty", "title", "time"],
+        "properties": {
+          "category": {
+            "type": "string",
+            "example": "STUFF",
+            "description": "Task category",
+            "enum": [
+              "STUFF",
+              "FAMILY",
+              "HEALTH",
+              "LEARNING",
+              "LEISURE",
+              "WORK"
+            ]
+          },
+          "difficulty": {
+            "type": "string",
+            "example": "Easy",
+            "description": "Difficulty of task",
+            "enum": ["Hard", "Easy", "Normal"]
+          },
+          "title": {
+            "type": "string",
+            "example": "Do something",
+            "description": "Body task"
+          },
+          "time": {
+            "type": "string",
+            "example": "06.14.2021 20:30",
+            "description": "Time of end task"
+          },
+          "challenge": {
+            "type": "boolean",
+            "example": false,
+            "description": "Is challenge? Default: false"
+          },
+          "done": {
+            "type": "boolean",
+            "example": false,
+            "description": "Is done? Default: false"
+          }
+        }
+      },
+      "createTaskResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "Success"
+          },
+          "code": {
+            "type": "integer",
+            "example": 201
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "category": {
+                "type": "string",
+                "example": "STUFF",
+                "description": "Task category",
+                "enum": [
+                  "STUFF",
+                  "FAMILY",
+                  "HEALTH",
+                  "LEARNING",
+                  "LEISURE",
+                  "WORK"
+                ]
+              },
+              "difficulty": {
+                "type": "string",
+                "example": "Easy",
+                "description": "Difficulty of task",
+                "enum": ["Hard", "Easy", "Normal"]
+              },
+              "title": {
+                "type": "string",
+                "example": "Do something",
+                "description": "Body task"
+              },
+              "time": {
+                "type": "string",
+                "example": "06.14.2021 20:30",
+                "description": "Time of end task"
+              },
+              "challenge": {
+                "type": "boolean",
+                "example": false,
+                "description": "Is challenge? Default: false"
+              },
+              "done": {
+                "type": "boolean",
+                "example": false,
+                "description": "Is done? Default: false"
+              }
+            }
+          }
+        }
+      },
+      "getAllTasksResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "Success"
+          },
+          "code": {
+            "type": "integer",
+            "example": 200
+          },
+          "data": {
+            "items": {
+              "type": "object",
+              "properties": {
+                "category": {
+                  "type": "string",
+                  "example": "STUFF",
+                  "description": "Task category",
+                  "enum": [
+                    "STUFF",
+                    "FAMILY",
+                    "HEALTH",
+                    "LEARNING",
+                    "LEISURE",
+                    "WORK"
+                  ]
+                },
+                "difficulty": {
+                  "type": "string",
+                  "example": "Easy",
+                  "description": "Difficulty of task",
+                  "enum": ["Hard", "Easy", "Normal"]
+                },
+                "title": {
+                  "type": "string",
+                  "example": "Do something",
+                  "description": "Body task"
+                },
+                "time": {
+                  "type": "string",
+                  "example": "06.14.2021 20:30",
+                  "description": "Time of end task"
+                },
+                "challenge": {
+                  "type": "boolean",
+                  "example": false,
+                  "description": "Is challenge? Default: false"
+                },
+                "done": {
+                  "type": "boolean",
+                  "example": false,
+                  "description": "Is done? Default: false"
+                }
+              }
+            }
+          }
+        }
+      },
+      "UNAUTHORIZED": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "Error"
+          },
+          "code": {
+            "type": "integer",
+            "example": "401"
+          },
+          "message": {
+            "type": "string",
+            "example": "UNAUTHORIZED"
+          },
+          "data": {
+            "type": "string",
+            "example": "UNAUTHORIZED"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
   }
+}
