@@ -234,7 +234,7 @@
           }
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Success",
             "content": {
               "application/json": {
@@ -283,6 +283,69 @@
             "description": "Id of task"
           }
         ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#components/schemas/deleteTaskResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation Error",
+            "content": {}
+          },
+          "401": {
+            "description": "UNAUTHORIZED",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#components/schemas/UNAUTHORIZED"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#components/schemas/taskNotFound"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tasks/{taskId}/done": {
+      "patch": {
+        "summary": "Update status done of task",
+        "tags": ["Tasks"],
+        "security": [{ "Bearer": [] }],
+        "parameters": [
+          {
+            "name": "taskId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Id of task"
+          }
+        ],
+        "requestBody": {
+          "description": "Task body",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#components/schemas/updateStatusTaskRequest"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "Success",
@@ -520,6 +583,17 @@
             "type": "boolean",
             "example": false,
             "description": "Is done? Default: false"
+          }
+        }
+      },
+      "updateStatusTaskRequest": {
+        "type": "object",
+        "required": ["done"],
+        "properties": {
+          "done": {
+            "type": "boolean",
+            "example": false,
+            "description": "Is done?"
           }
         }
       },

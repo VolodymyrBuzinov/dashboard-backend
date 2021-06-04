@@ -17,6 +17,10 @@ const schemaCreateTask = Joi.object({
   time: Joi.string().required(),
 });
 
+const schemaUpdateStatusTask = Joi.object({
+  done: Joi.boolean().required(),
+});
+
 // const schemaUpdateTask = Joi.object({
 //   category: Joi.string()
 //     .valid('STUFF', 'FAMILY', 'HEALTH', 'LEARNING', 'LEISURE', 'WORK')
@@ -51,11 +55,16 @@ const validateCreateTask = (req, res, next) => {
   return validate(schemaCreateTask, req.body, next);
 };
 
+const validateUpdateStatusTask = (req, res, next) => {
+  return validate(schemaUpdateStatusTask, req.body, next);
+};
+
 // const validateUpdateTask = (req, res, next) => {
 //   return validate(schemaUpdateTask, req.body, next);
 // };
 
 module.exports = {
   validateCreateTask,
+  validateUpdateStatusTask,
   // validateUpdateTask,
 };

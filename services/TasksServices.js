@@ -24,6 +24,14 @@ class TasksServices {
       body,
     );
   }
+
+  async updateStatusTask(userId, taskId, body) {
+    return await this.tasksRepository.updateTask(
+      userId,
+      taskId,
+      body,
+    );
+  }
 }
 
 module.exports = { TasksServices };
