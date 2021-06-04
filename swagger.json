@@ -106,6 +106,35 @@
         }
       }
     },
+    "/users/verify": {
+      "post": {
+        "summary": "Check Verification, Send New Email",
+        "tags": ["Auth"],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#components/schemas/verificationResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Verification has already been passed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#components/schemas/verificationErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/tasks": {
       "get": {
         "summary": "Get all tasks",
@@ -295,6 +324,52 @@
   },
   "components": {
     "schemas": {
+      "verificationResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "Success"
+          },
+          "code": {
+            "type": "integer",
+            "example": 200
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "message": {
+                "type": "string",
+                "example": "Verification successful",
+                "description": "Verification status"
+              }
+            }
+          }
+        }
+      },
+      "verificationErrorResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "Error"
+          },
+          "code": {
+            "type": "integer",
+            "example": 400
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "message": {
+                "type": "string",
+                "example": "Verification has already been passed",
+                "description": "Verification status"
+              }
+            }
+          }
+        }
+      },
       "registrationResponse": {
         "type": "object",
         "properties": {
