@@ -8,6 +8,11 @@ const {
   validateVerifyUser,
 } = require('../validation/UserValidation');
 
+router.get(
+  '/verify/:verificationToken',
+  userControllers.verification,
+);
+router.get('/current', guard, userControllers.current);
 router.post(
   '/signup',
   validateRegistrationUser,
@@ -15,15 +20,10 @@ router.post(
 );
 router.post('/login', validateLoginUser, userControllers.login);
 router.post('/logout', guard, userControllers.logout);
-router.get(
-  '/verify/:verificationToken',
-  userControllers.verification,
-);
 router.post(
   '/verify',
   validateVerifyUser,
   userControllers.sendNewMail,
 );
-// router.get('/current', guard, userController.current);
 
 module.exports = router;

@@ -35,6 +35,15 @@ class AuthService {
     const data = this.repository.updateToken(userID, null);
     return data;
   }
+  async current(email) {
+    const user = await this.repository.getByEmail(email);
+    return {
+      email: user.email,
+      token: user.token,
+      verify: user.verify,
+      verifyToken: user.verifyToken,
+    };
+  }
 }
 
 module.exports = { AuthService };

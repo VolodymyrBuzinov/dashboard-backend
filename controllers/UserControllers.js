@@ -105,10 +105,22 @@ const sendNewMail = async (req, res, next) => {
     next(error);
   }
 };
+const current = async (req, res, next) => {
+  try {
+    const userEmail = req.user.email;
+    const user = await authService.current(userEmail);
+    return res
+      .status(codes.OK)
+      .json({ status: 'success', code: codes.OK, data: user });
+  } catch (error) {
+    next(error);
+  }
+};
 module.exports = {
   register,
   login,
   logout,
   verification,
   sendNewMail,
+  current,
 };

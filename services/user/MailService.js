@@ -4,7 +4,7 @@ const Mailgen = require('mailgen');
 
 class MailService {
   constructor() {
-    this.path = 'https://dashboard-go-it.herokuapp.com/';
+    this.path = 'https://dashboard-go-it.herokuapp.com';
     this.sgMail = sgMail;
     this.mailgen = Mailgen;
   }
