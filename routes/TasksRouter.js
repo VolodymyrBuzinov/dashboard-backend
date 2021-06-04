@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const {
   validateCreateTask,
+  validateUpdateStatusTask,
   // validateUpdateTask,
 } = require('../validation/TasksValidation');
 const tasksController = require('../controllers/TasksController');
@@ -25,11 +26,11 @@ router.put(
   tasksController.updateTask,
 );
 
-// router.patch(
-//   '/:contactId/favorite',
-//   guard,
-//   updateStatus,
-//   contactsController.updateStatusContact,
-// );
+router.patch(
+  '/:taskId/done',
+  guard,
+  validateUpdateStatusTask,
+  tasksController.updateStatusTask,
+);
 
 module.exports = router;
