@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "Dashboard Api",
+    "title": "Questify Api",
     "version": "v1"
   },
   "servers": [
@@ -19,6 +19,7 @@
       "description": "Tasks methods"
     }
   ],
+
   "paths": {
     "/users/signup": {
       "post": {
@@ -100,8 +101,14 @@
             "content": {}
           },
           "401": {
-            "description": "UNAUTHORIZED",
-            "content": {}
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#components/schemas/UNAUTHORIZED"
+                }
+              }
+            }
           }
         }
       }
@@ -111,6 +118,17 @@
         "summary": "Check Verification, Send New Email",
         "tags": ["Auth"],
         "parameters": [],
+        "requestBody": {
+          "description": "Verify body",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#components/schemas/verifyRequest"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "Success",
@@ -122,6 +140,7 @@
               }
             }
           },
+
           "400": {
             "description": "Verification has already been passed",
             "content": {
@@ -131,6 +150,10 @@
                 }
               }
             }
+          },
+          "500": {
+            "description": "Verification has already been passed",
+            "content": {}
           }
         }
       }
@@ -387,6 +410,16 @@
   },
   "components": {
     "schemas": {
+      "verifyRequest": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "example": "example@gmail.com",
+            "required": true
+          }
+        }
+      },
       "verificationResponse": {
         "type": "object",
         "properties": {
@@ -421,15 +454,10 @@
             "type": "integer",
             "example": 400
           },
-          "data": {
-            "type": "object",
-            "properties": {
-              "message": {
-                "type": "string",
-                "example": "Verification has already been passed",
-                "description": "Verification status"
-              }
-            }
+          "message": {
+            "type": "string",
+            "example": "Verification has already been passed",
+            "description": "Verification status"
           }
         }
       },

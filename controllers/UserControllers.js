@@ -97,6 +97,8 @@ const sendNewMail = async (req, res, next) => {
       });
     }
     return next({
+      status: 400,
+      code: 400,
       message: 'Verification has already been passed',
     });
   } catch (error) {

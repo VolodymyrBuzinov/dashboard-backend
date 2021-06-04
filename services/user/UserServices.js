@@ -40,14 +40,14 @@ class UserService {
   }
   async sendNewMail({ email }) {
     try {
-      const data = await this.repository.sendNewMaiL(email);
-      if (!data.verify) {
+      const user = await this.repository.sendNewMaiL(email);
+      if (!user.verify) {
         this.mailService.sendEmail(
-          data.verifyToken,
+          user.verifyToken,
           email,
-          data.name,
+          user.name,
         );
-        return data;
+        return user;
       }
     } catch (error) {
       throw new Error(
