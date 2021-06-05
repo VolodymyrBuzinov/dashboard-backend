@@ -43,6 +43,13 @@ const login = async (req, res, next) => {
         },
       });
     }
+    if (token === undefined) {
+      return next({
+        status: codes.BAD_REQUEST,
+        message: 'Confirm your email first',
+        data: 'Unverified',
+      });
+    }
     next({
       status: codes.UNAUTHORIZED,
       message: 'Email or password is wrong',
@@ -55,6 +62,7 @@ const login = async (req, res, next) => {
 const logout = async (req, res, next) => {
   try {
     const userId = req.user.id;
+
     await authService.logout(userId);
     return res.status(codes.NO_CONTENT).json({
       status: 'Success',
@@ -96,11 +104,13 @@ const sendNewMail = async (req, res, next) => {
         },
       });
     }
-    return next({
-      status: 400,
-      code: 400,
-      message: 'Verification has already been passed',
-    });
+    if (result === null) {
+      return next({
+        status: codes.BAD_REQUEST,
+        code: codes.BAD_REQUEST,
+        message: 'Verification has already been passed',
+      });
+    }
   } catch (error) {
     next(error);
   }
@@ -116,6 +126,23 @@ const current = async (req, res, next) => {
     next(error);
   }
 };
+const refresh = async (req, res, next) => {
+  try {
+    const userRefreshToken = req.user.refreshToken;
+    const user = await authService.refresh(userRefreshToken);
+    if (user) {
+      return res.status(codes.OK).json({
+        status: 'success',
+        code: codes.OK,
+        data: {
+          ...token,
+        },
+      });
+    }
+  } catch (error) {
+    next(error);
+  }
+};
 module.exports = {
   register,
   login,
@@ -123,4 +150,5 @@ module.exports = {
   verification,
   sendNewMail,
   current,
+  refresh,
 };

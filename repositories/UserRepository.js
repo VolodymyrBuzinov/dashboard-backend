@@ -16,13 +16,13 @@ class UserRepository {
     const result = await this.model.findOne({ _id: id });
     return result;
   }
-  async updateToken(userId, token) {
-    await this.model.updateOne({ _id: userId }, { token });
+  async updateToken(userId, token, refreshToken) {
+    await this.model.updateOne(
+      { _id: userId },
+      { token, refreshToken },
+    );
   }
-  async logout(userID) {
-    const data = this.model.logout(userID);
-    return data;
-  }
+
   async verification({ verifyToken }) {
     const user = await this.model.findOne({ verifyToken });
 
@@ -37,6 +37,10 @@ class UserRepository {
   }
   async sendNewMaiL(email) {
     const data = await this.model.findOne({ email });
+    return data;
+  }
+  async refresh(refreshToken) {
+    const data = await this.model.findOne({ refreshToken });
     return data;
   }
 }

@@ -50,11 +50,7 @@ class UserService {
         return user;
       }
     } catch (error) {
-      throw new Error(
-        400,
-        error.message,
-        'Verification has already been passed',
-      );
+      return null;
     }
   }
 }

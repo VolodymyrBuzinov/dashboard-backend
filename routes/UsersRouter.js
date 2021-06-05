@@ -25,5 +25,6 @@ router.post(
   validateVerifyUser,
   userControllers.sendNewMail,
 );
+router.post('/refresh', guard, userControllers.refresh);
 
 module.exports = router;

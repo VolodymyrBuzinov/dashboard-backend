@@ -17,14 +17,22 @@ class AuthService {
     if (!valid) {
       return null;
     }
+    if (!user.verify) {
+      return undefined;
+    }
     const id = user.id;
     const payload = { id, email };
     const token = jwt.sign(payload, process.env.JWT_KEY, {
       expiresIn: '1h',
     });
-    await this.repository.updateToken(id, token);
+    const refreshToken = jwt.sign(payload, process.env.JWT_KEY, {
+      expiresIn: '30d',
+    });
+
+    await this.repository.updateToken(id, token, refreshToken);
     return {
       token,
+      refreshToken,
       user: {
         name: user.name,
         email: user.email,
@@ -32,7 +40,7 @@ class AuthService {
     };
   }
   async logout(userID) {
-    const data = this.repository.updateToken(userID, null);
+    const data = this.repository.updateToken(userID, null, null);
     return data;
   }
   async current(email) {
@@ -43,6 +51,12 @@ class AuthService {
       verify: user.verify,
       verifyToken: user.verifyToken,
     };
+  }
+  async refresh(refreshToken) {
+    const user = jwt.verify(refreshToken, process.env.JWT_KEY);
+    if (user) {
+      return this.login(user.email, user.password);
+    }
   }
 }
 
