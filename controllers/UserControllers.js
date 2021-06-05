@@ -77,13 +77,7 @@ const verification = async (req, res, next) => {
   try {
     const result = await userService.verification(req.params);
     if (result) {
-      return res.status(codes.OK).json({
-        status: 'success',
-        code: codes.OK,
-        data: {
-          message: 'Verification successful',
-        },
-      });
+      return res.redirect('http://localhost:3000/verifyPage')
     }
     return next({
       message: 'User not found',
