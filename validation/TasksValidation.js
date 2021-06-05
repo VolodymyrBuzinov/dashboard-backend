@@ -6,7 +6,7 @@ const schemaCreateTask = Joi.object({
     .valid('STUFF', 'FAMILY', 'HEALTH', 'LEARNING', 'LEISURE', 'WORK')
     .required(),
 
-  difficulty: Joi.string().valid('Hard', 'Easy', 'Normal').required(),
+  difficulty: Joi.string().valid('HARD', 'EASY', 'NORMAL').required(),
 
   title: Joi.string().min(3).max(30).required(),
 
