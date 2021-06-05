@@ -640,9 +640,9 @@
           },
           "difficulty": {
             "type": "string",
-            "example": "Easy",
+            "example": "EASY",
             "description": "Difficulty of task",
-            "enum": ["Hard", "Easy", "Normal"]
+            "enum": ["HARD", "EASY", "NORMAL"]
           },
           "title": {
             "type": "string",
@@ -706,9 +706,9 @@
               },
               "difficulty": {
                 "type": "string",
-                "example": "Easy",
+                "example": "EASY",
                 "description": "Difficulty of task",
-                "enum": ["Hard", "Easy", "Normal"]
+                "enum": ["HARD", "EASY", "NORMAL"]
               },
               "title": {
                 "type": "string",
@@ -774,9 +774,9 @@
                 },
                 "difficulty": {
                   "type": "string",
-                  "example": "Easy",
+                  "example": "EASY",
                   "description": "Difficulty of task",
-                  "enum": ["Hard", "Easy", "Normal"]
+                  "enum": ["HARD", "EASY", "NORMAL"]
                 },
                 "title": {
                   "type": "string",
@@ -842,9 +842,9 @@
               },
               "difficulty": {
                 "type": "string",
-                "example": "Easy",
+                "example": "EASY",
                 "description": "Difficulty of task",
-                "enum": ["Hard", "Easy", "Normal"]
+                "enum": ["HARD", "EASY", "NORMAL"]
               },
               "title": {
                 "type": "string",
