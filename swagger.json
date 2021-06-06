@@ -3,7 +3,8 @@
 
   "info": {
     "title": "Questify Api",
-    "version": "v1"
+    "version": "v1",
+    "description": "API Link: https://callboard-backend.herokuapp.com"
   },
   "servers": [
     {
