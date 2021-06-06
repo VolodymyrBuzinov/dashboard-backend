@@ -61,8 +61,11 @@ const login = async (req, res, next) => {
 };
 const logout = async (req, res, next) => {
   try {
-    const userId = req.user.id;
-    await authService.logout(userId);
+    // const userId = req.user.id;
+    const currentSession = req.session;
+    await authService.logout( currentSession);
+    req.user = null;
+    req.session = null;
     return res.status(codes.NO_CONTENT).json({
       status: 'Success',
       message: 'Success logout',

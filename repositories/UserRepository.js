@@ -16,12 +16,6 @@ class UserRepository {
     const result = await this.model.findOne({ _id: id });
     return result;
   }
-  async updateToken(userId, token, refreshToken) {
-    await this.model.updateOne(
-      { _id: userId },
-      { token, refreshToken },
-    );
-  }
 
   async verification({ verifyToken }) {
     const user = await this.model.findOne({ verifyToken });
