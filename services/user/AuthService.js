@@ -24,14 +24,13 @@ class AuthService {
     const id = user.id;
     const sessionStorage = new this.session({ uid: id });
     await sessionStorage.save();
-    const payload = { sid: sessionStorage._id, id, email };
+    const payload = { sid: sessionStorage._id, uid: id, email };
     const token = jwt.sign(payload, process.env.JWT_KEY, {
       expiresIn: '1h',
     });
     const refreshToken = jwt.sign(payload, process.env.JWT_REFRESH, {
       expiresIn: '30d',
     });
-    await this.repository.updateToken(id, token, refreshToken);
     return {
       token,
       refreshToken,
@@ -41,9 +40,8 @@ class AuthService {
       },
     };
   }
-  async logout(userID) {
-    await this.session.findOneAndDelete({ uid: userID });
-    await this.repository.updateToken(userID, null, null);
+  async logout(currentSession) {
+    await this.session.findByIdAndDelete(currentSession._id);
   }
   async current(email) {
     const user = await this.repository.getByEmail(email);
@@ -57,13 +55,13 @@ class AuthService {
   async refresh(refreshToken) {
     const user = jwt.verify(refreshToken, process.env.JWT_REFRESH);
     if (user) {
-      const id = user.id;
+      const id = user.uid;
       await this.session.findOneAndDelete({ uid: id });
       const sessionStorage = new this.session({ uid: id });
       await sessionStorage.save();
       const payload = {
         sid: sessionStorage._id,
-        id,
+        uid: id,
         email: user.email,
       };
       const token = jwt.sign(payload, process.env.JWT_KEY, {
@@ -76,7 +74,6 @@ class AuthService {
           expiresIn: '30d',
         },
       );
-      await this.repository.updateToken(id, token, refreshToken);
       return {
         token,
         refreshToken,

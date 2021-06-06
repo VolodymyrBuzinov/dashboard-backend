@@ -40,14 +40,10 @@ const deleteTask = async (req, res, next) => {
     );
 
     if (deletedTask) {
-      res.status(codes.OK).json({
-        status: 'success',
-        code: codes.OK,
-        data: deletedTask,
-      });
+      res.status(codes.NO_CONTENT);
     } else {
       return next({
-        status: 'Not Found',
+        status: codes.NOT_FOUND,
         code: codes.NOT_FOUND,
         message: 'Task not found',
         data: 'Not Found',
@@ -76,7 +72,7 @@ const updateTask = async (req, res, next) => {
       });
     } else {
       return next({
-        status: 'Not Found',
+        status: codes.NOT_FOUND,
         code: codes.NOT_FOUND,
         message: 'Task not found',
         data: 'Not Found',
@@ -105,7 +101,7 @@ const updateStatusTask = async (req, res, next) => {
       });
     } else {
       return next({
-        status: 'Not Found',
+        status: codes.NOT_FOUND,
         code: codes.NOT_FOUND,
         message: 'Task not found',
         data: 'Not Found',
