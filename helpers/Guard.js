@@ -1,4 +1,3 @@
-require('../configs/Passport');
 const codes = require('./Codes');
 const UserModel = require('../schemas/UserSchema');
 const SessionModel = require('../schemas/SessionSchema');
