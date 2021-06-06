@@ -384,15 +384,9 @@
           }
         ],
         "responses": {
-          "200": {
+          "204": {
             "description": "Success",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#components/schemas/deleteTaskResponse"
-                }
-              }
-            }
+            "content": {}
           },
           "400": {
             "description": "Validation Error",
@@ -452,7 +446,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#components/schemas/deleteTaskResponse"
+                  "$ref": "#components/schemas/updateStatusTaskResponse"
                 }
               }
             }
@@ -813,6 +807,73 @@
           "code": {
             "type": "integer",
             "example": 201
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "category": {
+                "type": "string",
+                "example": "STUFF",
+                "description": "Task category",
+                "enum": [
+                  "STUFF",
+                  "FAMILY",
+                  "HEALTH",
+                  "LEARNING",
+                  "LEISURE",
+                  "WORK"
+                ]
+              },
+              "difficulty": {
+                "type": "string",
+                "example": "EASY",
+                "description": "Difficulty of task",
+                "enum": ["HARD", "EASY", "NORMAL"]
+              },
+              "title": {
+                "type": "string",
+                "example": "Do something",
+                "description": "Body task"
+              },
+              "time": {
+                "type": "string",
+                "example": "06.14.2021 20:30",
+                "description": "Time of end task"
+              },
+              "challenge": {
+                "type": "boolean",
+                "example": false,
+                "description": "Is challenge? Default: false"
+              },
+              "done": {
+                "type": "boolean",
+                "example": false,
+                "description": "Is done? Default: false"
+              },
+              "_id": {
+                "type": "string",
+                "example": "60b8933d150add3b84d312cf",
+                "description": "Task id"
+              },
+              "owner": {
+                "type": "string",
+                "example": "60b8933d150add3b84d312cf",
+                "description": "Task-owner id"
+              }
+            }
+          }
+        }
+      },
+      "updateStatusTaskResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "Success"
+          },
+          "code": {
+            "type": "integer",
+            "example": 200
           },
           "data": {
             "type": "object",
