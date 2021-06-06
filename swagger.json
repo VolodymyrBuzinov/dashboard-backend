@@ -4,7 +4,7 @@
   "info": {
     "title": "Questify Api",
     "version": "v1",
-    "description": "API Link: https://callboard-backend.herokuapp.com"
+    "description": "API Link: https://dashboard-go-it.herokuapp.com"
   },
   "servers": [
     {
