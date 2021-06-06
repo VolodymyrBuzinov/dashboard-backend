@@ -1,5 +1,6 @@
 {
   "openapi": "3.0.1",
+
   "info": {
     "title": "Questify Api",
     "version": "v1"
@@ -182,6 +183,56 @@
               "application/json": {
                 "schema": {
                   "$ref": "#components/schemas/UNAUTHORIZED"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/refresh": {
+      "post": {
+        "summary": "Get new tokens",
+        "tags": ["Auth"],
+        "parameters": [],
+        "requestBody": {
+          "description": "Refresh body",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#components/schemas/refreshRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#components/schemas/refreshResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#components/schemas/UNAUTHORIZED"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#components/schemas/refreshError"
                 }
               }
             }
@@ -441,6 +492,81 @@
   },
   "components": {
     "schemas": {
+      "refreshError": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "Server Error"
+          },
+          "code": {
+            "type": "integer",
+            "example": "500"
+          },
+          "message": {
+            "type": "string",
+            "example": "invalid signature"
+          },
+          "data": {
+            "type": "string",
+            "example": "500"
+          }
+        }
+      },
+      "refreshRequest": {
+        "type": "object",
+        "required": ["refreshToken"],
+        "properties": {
+          "refreshToken": {
+            "type": "string",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+            "description": "Users RefreshToken"
+          }
+        }
+      },
+      "refreshResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "Success"
+          },
+          "code": {
+            "type": "integer",
+            "example": 200
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "token": {
+                "type": "string",
+                "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwYjhhNmRkNTk3ZjJiMWYzNGU5OTdkYyIsImVtYWlsIjoidm92YUBnbWFpbC5jb20iLCJpYXQiOjE2MjI3MTQxMDYsImV4cCI6MTYyMjcxNzcwNn0.o63iY3Aek9yYrmdEEPl0c15o36ILs44AnX4oytReFxE",
+                "description": "Users Token"
+              },
+              "refreshToken": {
+                "type": "string",
+                "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwYjhhNmRkNTk3ZjJiMWYzNGU5OTdkYyIsImVtYWlsIjoidm92YUBnbWFpbC5jb20iLCJpYXQiOjE2MjI3MTQxMDYsImV4cCI6MTYyMjcxNzcwNn0.o63iY3Aek9yYrmdEEPl0c15o36ILs44AnX4oytReFxE",
+                "description": "Refresh Token"
+              },
+              "user": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "format": "email",
+                    "description": "Users Email"
+                  },
+                  "id": {
+                    "type": "string",
+                    "example": "eyJhbGciOiJIUzI1NiIsInR5c",
+                    "description": "Users Id"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
       "currentResponse": {
         "type": "object",
         "properties": {
@@ -601,6 +727,11 @@
                 "type": "string",
                 "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwYjhhNmRkNTk3ZjJiMWYzNGU5OTdkYyIsImVtYWlsIjoidm92YUBnbWFpbC5jb20iLCJpYXQiOjE2MjI3MTQxMDYsImV4cCI6MTYyMjcxNzcwNn0.o63iY3Aek9yYrmdEEPl0c15o36ILs44AnX4oytReFxE",
                 "description": "Users Token"
+              },
+              "refreshToken": {
+                "type": "string",
+                "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwYjhhNmRkNTk3ZjJiMWYzNGU5OTdkYyIsImVtYWlsIjoidm92YUBnbWFpbC5jb20iLCJpYXQiOjE2MjI3MTQxMDYsImV4cCI6MTYyMjcxNzcwNn0.o63iY3Aek9yYrmdEEPl0c15o36ILs44AnX4oytReFxE",
+                "description": "Refresh Token"
               },
               "user": {
                 "type": "object",

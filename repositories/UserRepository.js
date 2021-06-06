@@ -39,10 +39,6 @@ class UserRepository {
     const data = await this.model.findOne({ email });
     return data;
   }
-  async refresh(refreshToken) {
-    const data = await this.model.findOne({ refreshToken });
-    return data;
-  }
 }
 
 module.exports = { UserRepository };

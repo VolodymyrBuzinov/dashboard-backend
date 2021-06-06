@@ -62,7 +62,6 @@ const login = async (req, res, next) => {
 const logout = async (req, res, next) => {
   try {
     const userId = req.user.id;
-
     await authService.logout(userId);
     return res.status(codes.NO_CONTENT).json({
       status: 'Success',
@@ -77,7 +76,7 @@ const verification = async (req, res, next) => {
   try {
     const result = await userService.verification(req.params);
     if (result) {
-      return res.redirect('http://localhost:3000/verifyPage')
+      return res.redirect('http://localhost:3000/verifyPage');
     }
     return next({
       message: 'User not found',
@@ -122,14 +121,14 @@ const current = async (req, res, next) => {
 };
 const refresh = async (req, res, next) => {
   try {
-    const userRefreshToken = req.user.refreshToken;
+    const userRefreshToken = req.body.refreshToken;
     const user = await authService.refresh(userRefreshToken);
     if (user) {
       return res.status(codes.OK).json({
         status: 'success',
         code: codes.OK,
         data: {
-          ...token,
+          ...user,
         },
       });
     }
