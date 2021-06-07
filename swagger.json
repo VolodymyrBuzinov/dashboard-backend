@@ -545,6 +545,11 @@
                     "format": "email",
                     "description": "Users Email"
                   },
+                  "name": {
+                    "type": "string",
+                    "example": "Vasya",
+                    "description": "Users Name"
+                  },
                   "id": {
                     "type": "string",
                     "example": "eyJhbGciOiJIUzI1NiIsInR5c",
@@ -563,9 +568,10 @@
             "type": "string",
             "example": "example@gmail.com"
           },
-          "token": {
+          "name": {
             "type": "string",
-            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9"
+            "example": "Vasya",
+            "description": "Users Name"
           },
           "verify": {
             "type": "boolean",

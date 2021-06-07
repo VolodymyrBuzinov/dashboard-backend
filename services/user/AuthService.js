@@ -22,9 +22,10 @@ class AuthService {
       return undefined;
     }
     const id = user.id;
+    const name = user.name;
     const sessionStorage = new this.session({ uid: id });
     await sessionStorage.save();
-    const payload = { sid: sessionStorage._id, uid: id, email };
+    const payload = { sid: sessionStorage._id, uid: id, email, name };
     const token = jwt.sign(payload, process.env.JWT_KEY, {
       expiresIn: '1h',
     });
@@ -47,6 +48,7 @@ class AuthService {
     const user = await this.repository.getByEmail(email);
     return {
       email: user.email,
+      name: user.name,
       token: user.token,
       verify: user.verify,
       verifyToken: user.verifyToken,
@@ -63,6 +65,7 @@ class AuthService {
         sid: sessionStorage._id,
         uid: id,
         email: user.email,
+        name: user.name,
       };
       const token = jwt.sign(payload, process.env.JWT_KEY, {
         expiresIn: '1h',
@@ -80,6 +83,7 @@ class AuthService {
         user: {
           id,
           email: user.email,
+          name: user.name,
         },
       };
     }

@@ -60,8 +60,7 @@ const login = async (req, res, next) => {
   }
 };
 const logout = async (req, res, next) => {
-  try {
-    // const userId = req.user.id;
+  try {    
     const currentSession = req.session;
     await authService.logout( currentSession);
     req.user = null;
