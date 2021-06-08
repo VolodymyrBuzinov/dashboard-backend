@@ -21,22 +21,6 @@ const schemaUpdateStatusTask = Joi.object({
   done: Joi.boolean().required(),
 });
 
-// const schemaUpdateTask = Joi.object({
-//   category: Joi.string()
-//     .valid('STUFF', 'FAMILY', 'HEALTH', 'LEARNING', 'LEISURE', 'WORK')
-//     .required(),
-
-//   difficulty: Joi.string().valid('Hard', 'Easy', 'Normal').required(),
-
-//   title: Joi.string().min(3).max(30).required(),
-
-//   challenge: Joi.boolean().optional(),
-
-//   done: Joi.boolean().optional(),
-
-//   time: Joi.string().required(),
-// });
-
 const validate = (schema, body, next) => {
   const { error } = schema.validate(body);
   if (error) {
@@ -58,10 +42,6 @@ const validateCreateTask = (req, res, next) => {
 const validateUpdateStatusTask = (req, res, next) => {
   return validate(schemaUpdateStatusTask, req.body, next);
 };
-
-// const validateUpdateTask = (req, res, next) => {
-//   return validate(schemaUpdateTask, req.body, next);
-// };
 
 module.exports = {
   validateCreateTask,

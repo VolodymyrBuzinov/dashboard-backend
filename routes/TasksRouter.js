@@ -3,7 +3,6 @@ const router = express.Router();
 const {
   validateCreateTask,
   validateUpdateStatusTask,
-  // validateUpdateTask,
 } = require('../validation/TasksValidation');
 const tasksController = require('../controllers/TasksController');
 const guard = require('../helpers/Guard');
