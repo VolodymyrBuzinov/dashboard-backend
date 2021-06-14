@@ -40,7 +40,7 @@ const deleteTask = async (req, res, next) => {
     );
 
     if (deletedTask) {
-      res.status(codes.NO_CONTENT);
+      return res.status(codes.NO_CONTENT).end();
     } else {
       return next({
         status: codes.NOT_FOUND,
