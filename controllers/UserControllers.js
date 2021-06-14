@@ -60,9 +60,9 @@ const login = async (req, res, next) => {
   }
 };
 const logout = async (req, res, next) => {
-  try {    
+  try {
     const currentSession = req.session;
-    await authService.logout( currentSession);
+    await authService.logout(currentSession);
     req.user = null;
     req.session = null;
     return res.status(codes.NO_CONTENT).json({
@@ -78,7 +78,9 @@ const verification = async (req, res, next) => {
   try {
     const result = await userService.verification(req.params);
     if (result) {
-      return res.redirect('http://localhost:3000/verifyPage');
+      return res.redirect(
+        'https://cant-leave-without-node.netlify.app/verifyPage',
+      );
     }
     return next({
       message: 'User not found',
